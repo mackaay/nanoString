@@ -1,0 +1,10 @@
+ res <- read.table("C:/Users/chenkaim/Desktop/GliomavsHealth_R.csv", header=TRUE, sep=",", row.names = "name")
+ with(res, plot(logFC, -log10(p), pch=20, main="Volcano plot", xlim=c(-10.5,10)))
+with(subset(res, abs(-log10(p))>7 & abs(logFC)>1.5), points(logFC, -log10(p), pch=20, col="red"))
+
+
+
+
+ res1 <- read.table("C:/Users/chenkaim/Desktop/nanostring/trainingset/LGGvsGBM_R.csv", header=TRUE, sep=",", row.names = "id")
+with(res1, plot(logFC, -log10(pvalue), pch=20, main="Volcano plot of LGG vs GBM", xlim=c(-7,7)))
+with(subset(res1, abs(-log10(pvalue))>1.3 & abs(logFC)>1.5), points(logFC, -log10(pvalue), pch=20, col="red"))
