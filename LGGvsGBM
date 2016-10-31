@@ -1,0 +1,10 @@
+dat1 <- read.table("C:/Users/chenkaim/Desktop/GBM-LGG-comparedWithOriginalSignature.csv", header=TRUE, sep=",", row.names = "name")
+
+with(dat1, plot(logFC, -log10(adj.P.Val), pch=20, main="Volcano plot", xlim=c(-2.5,2.5)))
+
+
+with(subset(dat1, abs(-log10(adj.P.Val))>abs(log10(0.05)) & abs(logFC)>0.6), points(logFC, -log10(adj.P.Val), pch=20, col="red"))
+
+install.packages("calibrate")
+library(calibrate)
+with(subset(dat1, abs(-log10(adj.P.Val))>abs(log10(0.05)) & abs(logFC)>0.6), textxy(logFC, -log10(adj.P.Val), labs=Mir.ID, cex=0.8))
