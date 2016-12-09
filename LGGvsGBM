@@ -8,3 +8,18 @@ with(subset(dat1, abs(-log10(adj.P.Val))>abs(log10(0.05)) & abs(logFC)>0.6), poi
 install.packages("calibrate")
 library(calibrate)
 with(subset(dat1, abs(-log10(adj.P.Val))>abs(log10(0.05)) & abs(logFC)>0.6), textxy(logFC, -log10(adj.P.Val), labs=Mir.ID, cex=0.8))
+
+
+with(GBMvsHealth, plot(logFC, -log10(adj.P.Val), pch=20, main="GBMvsHealth", xlim=c(-5,5)))
+library(calibrate)
+with(subset(GBMvsHealth, abs(-log10(adj.P.Val))>abs(log10(0.05)) & abs(logFC)>0.6), points(logFC, -log10(adj.P.Val), pch=20, col="red"))
+with(subset(GBMvsHealth, abs(-log10(adj.P.Val))>abs(log10(0.05)) & abs(logFC)>0.6), textxy(logFC, -log10(adj.P.Val), labs=ID, cex=0.8))
+
+
+with(GBMvsLGG, plot(logFC, -log10(adj.P.Val), pch=20, main="GBMvsLGG", xlim=c(-5,5)))
+library(calibrate)
+with(subset(GBMvsLGG, abs(-log10(adj.P.Val))>abs(log10(0.05)) & abs(logFC)>0.5), points(logFC, -log10(adj.P.Val), pch=20, col="red"))
+with(subset(GBMvsLGG, abs(-log10(adj.P.Val))>abs(log10(0.05)) & abs(logFC)>0.5), textxy(logFC, -log10(adj.P.Val), labs=ID, cex=0.8))
+
+log10(0.2)
+log10(10)
