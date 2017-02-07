@@ -1,1 +1,106 @@
 
+
+
+## remove empty row number 76##
+hemolysistest <- hemolysistest[-c(76),]
+hemolysistest
+
+## histogram showing the distribution of miRNA##
+hist(hemolysistest$miR.451, breaks=100, xlab='miR-451 expression', main='Distribution of circulating miR-451 in 91 sample')
+hist(hemolysistest$miR.16, breaks=100, xlab='miR-16 expression', main='Distribution of circulating miR-16 in 91 sample')
+hist(hemolysistest$miR.145, breaks=100, xlab='miR-145 expression', main='Distribution of circulating miR-145 in 91 sample')
+hist(hemolysistest$miR.25, breaks=100, xlab='miR-25 expression', main='Distribution of circulating miR-25 in 91 sample')
+
+
+## linear model to perform regression##
+fit1<- lm(miR.451 ~ hemolysis.level, data= hemolysistest)
+summary(fit1)
+plot(hemolysistest$hemolysis.level, hemolysistest$miR.451, xlab='Hemolysis level', ylab='miR-451 expression')
+abline(fit1)
+
+fit2<- lm(miR.16 ~ hemolysis.level, data= hemolysistest)
+summary(fit2)
+plot(hemolysistest$hemolysis.level, hemolysistest$miR.16, xlab='Hemolysis level', ylab='miR-16 expression')
+abline(fit2)
+
+
+fit3<- lm(miR.145 ~ hemolysis.level, data= hemolysistest)
+summary(fit3)
+plot(hemolysistest$hemolysis.level, hemolysistest$miR.145, xlab='Hemolysis level', ylab='miR-145 expression')
+abline(fit3)
+
+fit4<- lm(miR.25 ~ hemolysis.level, data= hemolysistest)
+summary(fit4)
+plot(hemolysistest$hemolysis.level, hemolysistest$miR.25, xlab='Hemolysis level', ylab='miR-25 expression')
+abline(fit4)
+
+
+## re category hemolysis level into bilateral value##
+hemolysistest$hemolysis[hemolysistest$hemolysis.level >0] <- 1
+hemolysistest$hemolysis[hemolysistest$hemolysis.level ==0] <- 0
+
+#miR-451#
+boxplot(hemolysistest$miR.451 ~ hemolysistest$hemolysis, xlab ='Hemolysis', 
+        ylab='miR-451 expression', main='Group Comparison')
+t.test(hemolysistest$miR.451 ~ hemolysistest$hemolysis)
+par(mfrow=c(3,1))
+hist(hemolysistest$miR.451, breaks=100, xlab='miR-451 expression', 
+     main='Distribution of circulating miR-451 in 91 sample')
+boxplot(hemolysistest$miR.451 ~ hemolysistest$hemolysis, xlab ='Hemolysis', 
+        ylab='miR-451 expression', main='Group Comparison')
+plot(hemolysistest$hemolysis.level, hemolysistest$miR.451, xlab='Hemolysis level', 
+     ylab='miR-451 expression', main = 'linear regression of miR-451 againt hemolysis')
+abline(fit1)
+
+
+
+#miR-16#
+boxplot(hemolysistest$miR.16 ~ hemolysistest$hemolysis, xlab ='Hemolysis', 
+        ylab='miR-16 expression', main='Group Comparison')
+t.test(hemolysistest$miR.16 ~ hemolysistest$hemolysis)
+par(mfrow=c(3,1))
+hist(hemolysistest$miR.16, breaks=100, xlab='miR-16 expression', 
+     main='Distribution of circulating miR-16 in 91 sample')
+boxplot(hemolysistest$miR.16 ~ hemolysistest$hemolysis, xlab ='Hemolysis', 
+        ylab='miR-16 expression', main='Group Comparison')
+plot(hemolysistest$hemolysis.level, hemolysistest$miR.16, xlab='Hemolysis level', 
+     ylab='miR-16 expression', main = 'linear regression of miR-16 againt hemolysis')
+abline(fit2)
+
+#miR-25#
+boxplot(hemolysistest$miR.25 ~ hemolysistest$hemolysis, xlab ='Hemolysis', ylab='miR-25 expression', main='Group Comparison')
+t.test(hemolysistest$miR.25 ~ hemolysistest$hemolysis)
+par(mfrow=c(3,1))
+hist(hemolysistest$miR.25, breaks=100, xlab='miR-25 expression', 
+     main='Distribution of circulating miR-16 in 91 sample')
+boxplot(hemolysistest$miR.25 ~ hemolysistest$hemolysis, xlab ='Hemolysis', 
+        ylab='miR-25 expression', main='Group Comparison')
+plot(hemolysistest$hemolysis.level, hemolysistest$miR.25, xlab='Hemolysis level', 
+     ylab='miR-25 expression', main = 'linear regression of miR-25 againt hemolysis')
+abline(fit4)
+
+#miR-145#
+boxplot(hemolysistest$miR.145 ~ hemolysistest$hemolysis, xlab ='Hemolysis', ylab='miR-145 expression', main='Group Comparison')
+t.test(hemolysistest$miR.145 ~ hemolysistest$hemolysis)
+par(mfrow=c(3,1))
+hist(hemolysistest$miR.145, breaks=100, xlab='miR-145 expression', 
+     main='Distribution of circulating miR-145 in 91 sample')
+boxplot(hemolysistest$miR.145 ~ hemolysistest$hemolysis, xlab ='Hemolysis', 
+        ylab='miR-145 expression', main='Group Comparison')
+plot(hemolysistest$hemolysis.level, hemolysistest$miR.145, xlab='Hemolysis level', 
+     ylab='miR-145 expression', main = 'linear regression of miR-145 againt hemolysis')
+abline(fit3)
+
+
+fit1<- glm(hemolysistest$miR.451 ~ hemolysistest$hemolysis.level, family=poisson())
+summary(fit1)
+plot(hemolysistest$hemolysis.level, hemolysistest$miR.451)
+abline(fit1)
+
+fit2<- glm(hemolysistest$miR.16 ~ hemolysistest$hemolysis.level, family=poisson())
+summary(fit2)
+
+fit3<- glm(hemolysistest$miR.145 ~ hemolysistest$hemolysis.level, family=poisson())
+summary(fit3)
+
+
